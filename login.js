@@ -48,9 +48,9 @@ form.addEventListener("submit", function (e) {
     // Tambahkan animasi zoomOutDown sebelum redirect
     const homeSection = document.querySelector("#home .wrapper");
     homeSection.classList.add("zoomOutDown");
-    // setTimeout(() => {
-    //   window.location.href = "map/map.html"; // ganti sesuai tujuan
-    // }, 800); // sesuai durasi animasi di CSS
+    setTimeout(() => {
+      window.location.href = "map/map.html"; // ganti sesuai tujuan
+    }, 800); // sesuai durasi animasi di CSS
   } else if (
     usernameInput.value === secretUsername &&
     passwordInput.value === secretPassword
