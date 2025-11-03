@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Promed Map</title>
+    <link rel="stylesheet" href="map.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📍</text></svg>"
+    />
+    <link href="https://fonts.cdnfonts.com/css/snowbell" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/retro-pixel" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="underConstructionModal" class="modal-overlay">
+      <div class="modal-content">
+        <span id="modalBuildingName"></span>
+        <p>⚠️Under Maintenance⚠️</p>
+        <button id="closeModalBtn">Back</button>
+      </div>
+    </div>
+    <div class="introText">Promed Studio Map
+      <div class="key">W,A,S,D or arrow to move</div>
+    </div>
+    
+    <div class="canvas-wrapper">
+      <canvas id="gameCanvas" width="1365" height="768"></canvas>
+    </div>
+    <div id="hint"></div>
+    <script src="map.js"></script>
+  </body>
+</html>

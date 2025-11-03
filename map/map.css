@@ -1,0 +1,180 @@
+body {
+  margin: 0;
+  background-color: #cac4f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.canvas-wrapper {
+  width: 900px; /* ubah sesuai keinginan */
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #111;
+  border-radius: 5px;
+  border: 20px solid rgb(78, 27, 72); /* lapisan pertama */
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  background: url("../assets/bg3.png") no-repeat center/cover;
+  display: block;
+  border: 7px solid rgb(78, 27, 72); /* lapisan pertama */
+  outline: 7px solid rgb(245, 181, 246); /* lapisan pertama */
+  image-rendering: pixelated;
+}
+.introText .key {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 990;
+  -webkit-text-stroke: 0.6px #000;
+}
+.introText {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-text-stroke: 1px #000;
+  transform: translate(-50%, -50%);
+  font-family: "snowbell", monospace;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  opacity: 1;
+  animation: fadeOutIntro 3s ease forwards;
+  animation-delay: 3s;
+}
+
+@keyframes fadeOutIntro {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+#hint {
+  /* Styling untuk petunjuk "Tekan [Enter]" */
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: monospace;
+  display: none;
+}
+
+/* #map {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+} */
+
+#char {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 200px;
+  left: 100px;
+  transition: top 0.1s, left 0.1s;
+}
+
+#hint {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: monospace;
+  display: none;
+}
+
+/* Sembunyikan modal secara default */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Latar belakang gelap transparan */
+  display: none; /* Awalnya disembunyikan */
+  justify-content: center;
+  align-items: center;
+  z-index: 100; /* Pastikan di atas semua elemen game */
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  font-family: Impact, "Arial Narrow Bold", sans-serif;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.modal-content p {
+  margin: 10px;
+  font-size: 1.55rem;
+}
+.modal-content span {
+  font-size: 2rem;
+  font-family: "retro pixel", serif;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+
+#closeModalBtn {
+  color: white;
+  background-color: red;
+  font-family: "snowbell";
+  font-size: 1rem;
+  padding: 5px 4px 1px 7px;
+  box-shadow: 0 2px #888, 0 4px #000000;
+  transition: all 0.1s ease-in-out;
+  border: 2px solid #d2d2d2;
+  border-radius: 10px;
+}
+
+#closeModalBtn:hover {
+  color: #d73131;
+  background: white;
+  box-shadow: 0 2px #888, 0 5px #000;
+  transform: translateY(1px);
+}
+
+#closeModalBtn:active {
+  color: white;
+  background: #d73131;
+  box-shadow: 0 1px #000;
+  transform: translateY(3px);
+}
