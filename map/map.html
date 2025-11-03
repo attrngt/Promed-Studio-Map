@@ -12,6 +12,66 @@
     <link href="https://fonts.cdnfonts.com/css/retro-pixel" rel="stylesheet" />
   </head>
   <body>
+    <!-- HTML tambahan untuk tombol virtual -->
+    <div id="controls">
+      <button id="up">↑</button>
+      <button id="left">←</button>
+      <button id="down">↓</button>
+      <button id="right">→</button>
+      <button id="enterBtn">Enter</button>
+    </div>
+
+    <style>
+      #controls {
+        position: fixed;
+        bottom: 20px;
+        left: 25%;
+        transform: translateX(-50%);
+        display: grid;
+        grid-template-areas:
+          ". up ."
+          "left down right"
+          ". enter .";
+        gap: 10px;
+        display: none;
+      }
+
+      #controls button {
+        width: 60px;
+        height: 60px;
+        font-size: 18px;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border: none;
+      }
+
+      #controls button:active {
+        background-color: rgba(200, 200, 200, 0.8);
+      }
+
+      #up {
+        grid-area: up;
+      }
+      #down {
+        grid-area: down;
+      }
+      #left {
+        grid-area: left;
+      }
+      #right {
+        grid-area: right;
+      }
+      #enterBtn {
+        grid-area: enter;
+      }
+
+      @media (max-width: 768px) {
+        #controls {
+          display: block;
+        }
+      }
+    </style>
+
     <div id="underConstructionModal" class="modal-overlay">
       <div class="modal-content">
         <span id="modalBuildingName"></span>
@@ -19,10 +79,11 @@
         <button id="closeModalBtn">Back</button>
       </div>
     </div>
-    <div class="introText">Promed Studio Map
+    <div class="introText">
+      Promed Studio Map
       <div class="key">W,A,S,D or arrow to move</div>
     </div>
-    
+
     <div class="canvas-wrapper">
       <canvas id="gameCanvas" width="1365" height="768"></canvas>
     </div>

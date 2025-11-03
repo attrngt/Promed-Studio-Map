@@ -9,13 +9,20 @@ body {
   /* overflow: hidden; */
   margin: 0;
   padding: 0;
+  background: url("img/bg.png") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-y: auto; /* scroll muncul saat layar <= 768px */
+  }
 }
 
 /* Gaya Kustom untuk Tata Letak dan Background */
 #home {
-  background: url("img/bg.png") no-repeat center center;
-  background-size: cover;
-  background-attachment: fixed;
+  min-height: 100vh;
   image-rendering: pixelated;
 }
 
@@ -74,7 +81,7 @@ body {
   background: transparent;
   border: 3px solid #330084;
   backdrop-filter: blur(10px);
-  padding: 30px 40px ;
+  padding: 30px 40px;
   border-radius: 12px;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
   width: 320px; /* Batasi lebar */
@@ -94,7 +101,7 @@ body {
 
 .form-control:focus {
   /* Ganti border-color default Bootstrap */
-  border-color: #4f46e5; 
+  border-color: #4f46e5;
   box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25); /* Ganti box-shadow default */
 }
 
@@ -119,17 +126,25 @@ body {
 }
 
 .zoomOutDown {
-    animation: zoomOutDown 0.8s ease forwards;
-  }
+  position: absolute; /* posisi bebas tanpa memengaruhi layout */
+  top: 0; /* sesuaikan dengan posisi awal elemen */
+  left: 50%;
+  transform: translateX(-50%);
+  will-change: transform, opacity; /* optimasi animasi */
+  animation: zoomOutDown 0.8s ease forwards;
+}
 
-  @keyframes zoomOutDown {
-    40% {
-      opacity: 1;
-      transform: scale3d(0.475, 0.475, 0.475) translateY(60px);
-    }
-    100% {
-      opacity: 0;
-      transform: scale3d(0.1, 0.1, 0.1) translateY(700px);
-      transform-origin: center bottom;
-    }
+@keyframes zoomOutDown {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
   }
+  40% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(60px) scale(0.475);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(200px) scale(0.1);
+  }
+}
