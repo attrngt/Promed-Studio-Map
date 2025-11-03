@@ -401,5 +401,65 @@ function gameLoop() {
   checkBuildingCollision();
   requestAnimationFrame(gameLoop);
 }
+// JS tombol virtual untuk HP (untuk responsive/mobile)
+const virtualButtons = {
+  up: document.getElementById("up"),
+  down: document.getElementById("down"),
+  left: document.getElementById("left"),
+  right: document.getElementById("right"),
+  enterBtn: document.getElementById("enterBtn"),
+};
+
+Object.entries(virtualButtons).forEach(([key, btn]) => {
+  btn.addEventListener("touchstart", (e) => {
+    e.preventDefault(); // mencegah scroll
+
+    if (key === "enterBtn") {
+      // trigger logic Enter
+      if (isCollidingWithBuilding && !player.crouching && !player.bouncing) {
+        if (isCollidingWithBuilding.underConstruction) {
+          modalBuildingName.textContent = isCollidingWithBuilding.name;
+          modalOverlay.style.display = "flex";
+          return;
+        }
+        player.bouncing = true;
+        player.bounceFrame = 0;
+        setTimeout(() => {
+          window.location.href = isCollidingWithBuilding.redirect;
+        }, 500);
+      }
+    } else {
+      // simulasikan keyboard arrow
+      const arrowKey =
+        key === "up"
+          ? "ArrowUp"
+          : key === "down"
+          ? "ArrowDown"
+          : key === "left"
+          ? "ArrowLeft"
+          : key === "right"
+          ? "ArrowRight"
+          : null;
+      if (arrowKey) keys[arrowKey] = true;
+    }
+  });
+
+  btn.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    if (key !== "enterBtn") {
+      const arrowKey =
+        key === "up"
+          ? "ArrowUp"
+          : key === "down"
+          ? "ArrowDown"
+          : key === "left"
+          ? "ArrowLeft"
+          : key === "right"
+          ? "ArrowRight"
+          : null;
+      if (arrowKey) keys[arrowKey] = false;
+    }
+  });
+});
 
 playerImage.onload = gameLoop;

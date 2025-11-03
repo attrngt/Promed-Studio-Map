@@ -15,58 +15,59 @@
     <!-- HTML tambahan untuk tombol virtual -->
     <div id="controls">
       <button id="up">↑</button>
-      <button id="left">←</button>
       <button id="down">↓</button>
+      <button id="left">←</button>
       <button id="right">→</button>
       <button id="enterBtn">Enter</button>
     </div>
-
     <style>
       #controls {
-        position: fixed;
-        bottom: 20px;
-        left: 25%;
-        transform: translateX(-50%);
         display: none;
-        grid-template-areas:
-          ". up ."
-          "left down right"
-          ". enter .";
-        gap: 10px;
       }
 
-      #controls button {
-        width: 60px;
-        height: 60px;
-        font-size: 18px;
-        border-radius: 10px;
-        background-color: rgba(255, 255, 255, 0.7);
-        border: none;
-      }
-
-      #controls button:active {
-        background-color: rgba(200, 200, 200, 0.8);
-      }
-
-      #up {
-        grid-area: up;
-      }
-      #down {
-        grid-area: down;
-      }
-      #left {
-        grid-area: left;
-      }
-      #right {
-        grid-area: right;
-      }
-      #enterBtn {
-        grid-area: enter;
-      }
-
-      @media (max-width: 768px) {
+      /* Tombol muncul di layar ≤768px (HP/tablet kecil) */
+      @media screen and (max-width: 768px) {
         #controls {
           display: grid;
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          grid-template-areas:
+            ". up ."
+            "left down right"
+            ". enter .";
+          gap: 10px;
+          z-index: 1000;
+        }
+
+        #controls button {
+          width: 50px;
+          height: 50px;
+          font-size: 16px;
+          border-radius: 10px;
+          background-color: rgba(255, 255, 255, 0.7);
+          border: none;
+        }
+
+        #controls button:active {
+          background-color: rgba(200, 200, 200, 0.8);
+        }
+
+        #up {
+          grid-area: up;
+        }
+        #down {
+          grid-area: down;
+        }
+        #left {
+          grid-area: left;
+        }
+        #right {
+          grid-area: right;
+        }
+        #enterBtn {
+          grid-area: enter;
         }
       }
     </style>
