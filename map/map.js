@@ -81,27 +81,6 @@ const buildings = [
     redirect: "#",
     underConstruction: true,
   },
-
-  // {
-  //   id: "pokemon-center",
-  //   name: "max",
-  //   x: 1228,
-  //   y: 658,
-  //   width: 140,
-  //   height: 110,
-  //   redirect: "vc.html",
-  //   underConstruction: false,
-  // },
-  // {
-  //   id: "pokemon-center",
-  //   name: "center",
-  //   x: 624,
-  //   y: 329,
-  //   width: 140,
-  //   height: 110,
-  //   redirect: "#",
-  //   underConstruction: false,
-  // },
   {
     id: "flui",
     name: "flui",
@@ -210,7 +189,6 @@ modalOverlay.addEventListener("click", (e) => {
 });
 
 // tekan Enter untuk masuk bangunan (dengan efek bounce)
-// tekan Enter untuk masuk bangunan (dengan efek bounce)
 window.addEventListener("keydown", (e) => {
   if (
     e.key === "Enter" &&
@@ -223,7 +201,6 @@ window.addEventListener("keydown", (e) => {
       // Tampilkan modal kustom
       modalBuildingName.textContent = isCollidingWithBuilding.name;
       modalOverlay.style.display = "flex";
-      mod;
       return; // Hentikan fungsi di sini, tidak ada bounce atau redirect
     }
     // tujuan tersedia
@@ -241,6 +218,8 @@ function movePlayer() {
 
   player.moving = false;
 
+  // Logika pergerakan menggunakan keyboard (Arrow Keys dan WASD)
+  // Ini juga akan merespons tombol virtual karena tombol virtual memanipulasi keys["Arrow*"]
   if (keys["ArrowUp"] || keys["w"]) {
     player.y -= player.speed;
     player.frameY = 3;
@@ -288,25 +267,19 @@ function checkBuildingCollision() {
   }
 }
 function drawBuildingsMock() {
-  ctx.fillStyle = "transparent"; // Ubah opacity agar lebih terlihat
-  // UBAH FONT SIZE DI SINI: dari 16px menjadi 20px
+  ctx.fillStyle = "transparent";
   ctx.font = "13px 'snowbell', sans-serif";
   ctx.textAlign = "center";
-
-  // Konfigurasi Stroke untuk Teks
-  ctx.strokeStyle = "black"; // Warna outline (misalnya hitam)
-  ctx.lineWidth = 3; // Ketebalan outline
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 3;
 
   buildings.forEach((b) => {
     // Gambarkan area tabrakan (hitbox) bangunan
     ctx.fillRect(b.x, b.y, b.width, b.height);
 
     // --- Setup untuk Teks ---
-    // Hitung posisi x di tengah bangunan
     const textX = b.x + b.width / 2;
     const textY = b.y + b.height / 2 - 20;
-
-    // MEMBUAT NAMA BANGUNAN MENJADI UPPERCASE
     const uppercaseName = b.name.toUpperCase();
 
     // 1. Gambar Outline (Stroke)
@@ -368,7 +341,14 @@ function drawPlayer() {
   } else {
     player.frameX = 1;
   }
-  if (!player.moving && !player.bouncing && !player.blinking) {
+  // Logika Blink
+  if (
+    !player.moving &&
+    !player.bouncing &&
+    !player.blinking &&
+    Math.random() < 0.005
+  ) {
+    // Ditambah Math.random agar tidak selalu berkedip
     player.blinking = true;
     player.blinkFrame = 0;
   }
@@ -401,7 +381,10 @@ function gameLoop() {
   checkBuildingCollision();
   requestAnimationFrame(gameLoop);
 }
-// JS tombol virtual untuk HP (untuk responsive/mobile)
+
+// ===============================================
+// LOGIKA TOMBOL VIRTUAL UNTUK LAYAR SENTUH (HP)
+// ===============================================
 const virtualButtons = {
   up: document.getElementById("up"),
   down: document.getElementById("down"),
@@ -410,18 +393,23 @@ const virtualButtons = {
   enterBtn: document.getElementById("enterBtn"),
 };
 
+// Pasang listener untuk event sentuh (touchstart dan touchend)
 Object.entries(virtualButtons).forEach(([key, btn]) => {
+  if (!btn) return; // Tambahkan cek untuk memastikan tombol ditemukan
+
   btn.addEventListener("touchstart", (e) => {
-    e.preventDefault(); // mencegah scroll
+    e.preventDefault(); // mencegah scroll pada perangkat mobile
 
     if (key === "enterBtn") {
-      // trigger logic Enter
+      // Logic Enter/Aksi
       if (isCollidingWithBuilding && !player.crouching && !player.bouncing) {
         if (isCollidingWithBuilding.underConstruction) {
+          // Tampilkan modal Under Construction
           modalBuildingName.textContent = isCollidingWithBuilding.name;
           modalOverlay.style.display = "flex";
           return;
         }
+        // Lakukan efek bounce dan redirect
         player.bouncing = true;
         player.bounceFrame = 0;
         setTimeout(() => {
@@ -429,7 +417,7 @@ Object.entries(virtualButtons).forEach(([key, btn]) => {
         }, 500);
       }
     } else {
-      // simulasikan keyboard arrow
+      // Simulasikan penekanan tombol panah
       const arrowKey =
         key === "up"
           ? "ArrowUp"
@@ -440,13 +428,14 @@ Object.entries(virtualButtons).forEach(([key, btn]) => {
           : key === "right"
           ? "ArrowRight"
           : null;
-      if (arrowKey) keys[arrowKey] = true;
+      if (arrowKey) keys[arrowKey] = true; // Set status tombol ditekan
     }
   });
 
   btn.addEventListener("touchend", (e) => {
     e.preventDefault();
     if (key !== "enterBtn") {
+      // Simulasikan pelepasan tombol panah
       const arrowKey =
         key === "up"
           ? "ArrowUp"
@@ -457,7 +446,7 @@ Object.entries(virtualButtons).forEach(([key, btn]) => {
           : key === "right"
           ? "ArrowRight"
           : null;
-      if (arrowKey) keys[arrowKey] = false;
+      if (arrowKey) keys[arrowKey] = false; // Set status tombol dilepas
     }
   });
 });

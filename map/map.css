@@ -178,3 +178,101 @@ canvas {
   box-shadow: 0 1px #000;
   transform: translateY(3px);
 }
+
+/* Styling Default untuk Controls (Sembunyikan di Layar Besar) */
+#controls {
+    display: none; /* Sembunyikan secara default */
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50; /* Pastikan di atas elemen lain */
+    width: 280px; /* Lebar total untuk tombol */
+    /* Untuk debugging: border: 1px solid red; */
+}
+
+#controls button {
+    font-family: monospace;
+    font-size: 1.5rem;
+    padding: 10px;
+    margin: 5px;
+    width: 60px; /* Ukuran tombol navigasi */
+    height: 60px;
+    border-radius: 10px;
+    border: 3px solid #333;
+    background-color: rgba(255, 255, 255, 0.8); /* Agak transparan */
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.1s;
+}
+
+#controls button:active {
+    background-color: rgba(200, 200, 200, 0.9);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) inset;
+    transform: translateY(1px);
+}
+
+/* Penataan tombol di Layar Kecil (Mobile) */
+@media (max-width: 600px) {
+    /* Tampilkan #controls hanya di layar kecil */
+    #controls {
+        display: block;
+    }
+
+    /* Penataan layout tombol navigasi (D-pad style) */
+    #up, #down, #left, #right {
+        position: absolute;
+    }
+
+    /* Penataan Posisi D-pad */
+    #up {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #down {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #left {
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+    }
+
+    #right {
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+    }
+
+    /* Container untuk D-pad */
+    .d-pad-container {
+        position: relative;
+        width: 180px; /* 3x ukuran tombol */
+        height: 180px; /* 3x ukuran tombol */
+        margin-right: 20px;
+    }
+
+    /* Tombol Enter/Aksi - Letakkan di sebelah kanan D-pad */
+    #enterBtn {
+        position: absolute;
+        right: 0;
+        bottom: 50%;
+        transform: translateY(50%);
+        width: 80px; /* Lebih besar */
+        height: 80px;
+        font-size: 1.2rem;
+        border-radius: 50%; /* Bulat */
+        background-color: rgba(255, 50, 50, 0.8); /* Warna berbeda */
+        color: white;
+    }
+
+    /* Sembunyikan petunjuk keyboard di layar kecil */
+    .introText .key {
+        display: none;
+    }
+}
