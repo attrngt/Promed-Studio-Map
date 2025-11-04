@@ -27,7 +27,8 @@ body {
 }
 
 .wrapper {
-  gap: 4px;
+  margin-top: 40px;
+  gap: 4rem;
 }
 
 /* Gaya Kustom untuk Elemen Retro Pixel */
@@ -76,67 +77,50 @@ body {
   }
 }
 
-.login-container {
-  margin-bottom: 20px;
-  background: transparent;
-  border: 3px solid #330084;
-  backdrop-filter: blur(10px);
-  padding: 30px 40px ;
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
-  width: 320px; /* Batasi lebar */
-}
-
-.login-container h2 {
-  color: #333;
-}
-
-/* Penyesuaian Input Form Bootstrap */
-.form-control {
-  /* Menggunakan nilai padding dan border-radius yang lebih spesifik */
-  padding: 10px;
-  border-radius: 6px;
-  font-size: 14px;
-}
-
-.form-control:focus {
-  /* Ganti border-color default Bootstrap */
-  border-color: #4f46e5; 
-  box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25); /* Ganti box-shadow default */
-}
-
 /* Penyesuaian Tombol Bootstrap */
 .btn-primary {
-  background: #4f46e5;
-  border-color: #4f46e5; /* Pastikan warna border sama */
-  transition: 0.3s;
+  font-family: "Snowbell", monospace;
+  font-size: 1.3rem;
+  color: white;
+  background: #841877;
+  border: 4px solid #d2d2d2;
+  border-radius: 30px;
+  padding: 9px 10px 7px 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px #888, 0 8px #000000;
+  transition: all 0.1s ease-in-out;
+  image-rendering: pixelated;
 }
 
 .btn-primary:hover {
-  background: #3730a3;
-  border-color: #3730a3;
+  color: #841877;
+  border-color: whitesmoke;
+  background: white;
+  box-shadow: 0 2px #888, 0 4px #000;
+  transform: translateY(1px);
 }
 
-/* Gaya Pesan Error */
-.error-message {
-  color: red;
-  font-size: 12px;
-  margin-top: 5px;
-  display: none;
+.btn-primary:active {
+  color: white !important;
+  background: #841877 !important;
+  border-color: whitesmoke !important;
+  box-shadow: 0 1px #000 !important;
+  transform: translateY(3px);
 }
 
 .zoomOutDown {
-    animation: zoomOutDown 0.8s ease forwards;
-  }
+  animation: zoomOutDown 0.8s ease forwards;
+}
 
-  @keyframes zoomOutDown {
-    40% {
-      opacity: 1;
-      transform: scale3d(0.475, 0.475, 0.475) translateY(60px);
-    }
-    100% {
-      opacity: 0;
-      transform: scale3d(0.1, 0.1, 0.1) translateY(700px);
-      transform-origin: center bottom;
-    }
+@keyframes zoomOutDown {
+  40% {
+    opacity: 1;
+    transform: scale3d(0.475, 0.475, 0.475) translateY(60px);
   }
+  100% {
+    opacity: 0;
+    transform: scale3d(0.1, 0.1, 0.1) translateY(700px);
+    transform-origin: center bottom;
+  }
+}
