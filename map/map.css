@@ -127,14 +127,6 @@ canvas {
   display: none;
 }
 
-/* #map {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  image-rendering: pixelated;
-} */
-
 #char {
   position: absolute;
   width: 100px;
@@ -219,33 +211,29 @@ canvas {
   box-shadow: 0 1px #000;
   transform: translateY(3px);
 }
-
-.mobile-grid {
-  display: none;
-  padding: 20px;
-  background-color: rgb(13, 13, 20);
-  color: white;
-}
-
-.mobile-grid .card {
-  padding: 1.5em;
-  border: 1px solid rgb(75, 82, 92);
-  border-radius: 10px;
-  background-color: #222429;
-  text-align: center;
-}
-
-/* Responsiveness — tampilkan grid di tablet & HP */
-@media (max-width: 600px) {
-  .canvas-wrapper {
-    display: none !important;
+.card {
+    padding: 2em;
+    border: 1px solid rgb(75, 82, 92);
+    border-radius: 10px;
+    background-color: #222429;
+    text-align: center;
   }
-  .mobile-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  .grid-container {
+    display: none;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 15px;
+    justify-content: center;
+  }
+
+@media (max-width: 768px) {
+  .canvas-wrapper,
+  #gameCanvas {
+    display: none;
   }
   body {
     overflow: visible;
+  }
+  .grid-container{
+    display: grid;
   }
 }
