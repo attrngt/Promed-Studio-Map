@@ -212,28 +212,48 @@ canvas {
   transform: translateY(3px);
 }
 .card {
-    padding: 2em;
-    border: 1px solid rgb(75, 82, 92);
-    border-radius: 10px;
-    background-color: #222429;
-    text-align: center;
-  }
-  .grid-container {
-    display: none;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 15px;
-    justify-content: center;
-  }
+  padding: 2em;
+  border: 1px solid rgb(75, 82, 92);
+  border-radius: 10px;
+  background-color: #222429;
+  text-align: center;
+}
+.grid-container {
+  display: none;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  justify-content: center;
+}
 
-@media (max-width: 320px) {
+/* Media Query untuk Perangkat Mobile (Max-width 320px) */
+@media (max-width: 768px) {
+  /* Sembunyikan semua elemen game/canvas */
   .canvas-wrapper,
-  #gameCanvas {
+ #gameCanvas,
+.introText, /* <-- TAMBAHAN: Sembunyikan teks intro */
+#hint {
+    /* <-- TAMBAHAN: Sembunyikan petunjuk */
     display: none !important;
   }
+
+  /* Izinkan body untuk scroll karena konten card akan panjang */
   body {
     overflow: visible;
+    /* Atur ulang properti flex/height body agar konten mobile di tengah */
+    min-height: auto;
+    display: block;
+    padding: 20px; /* Tambahkan padding agar card tidak mepet */
   }
-  .grid-container{
+
+  /* Tampilkan grid card */
+  .grid-container {
     display: grid;
+    margin: 0 auto; /* Tengah-kan container */
+    max-width: 95%;
+  }
+
+  /* Atur card agar terlihat bagus di mode mobile */
+  .card {
+    padding: 1.5em; /* Sedikit kurang dari desktop */
   }
 }
