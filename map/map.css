@@ -236,9 +236,8 @@ canvas {
 }
 
 /* Responsiveness — tampilkan grid di tablet & HP */
-@media (max-width: 900px) {
-  .canvas-wrapper,
-  #gameCanvas {
+@media (max-width: 600px) {
+  .canvas-wrapper {
     display: none !important;
   }
   .mobile-grid {
