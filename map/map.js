@@ -381,5 +381,11 @@ function gameLoop() {
   checkBuildingCollision();
   requestAnimationFrame(gameLoop);
 }
+// Cek apakah layar cukup besar untuk main game
+if (window.innerWidth > 900) {
+  playerImage.onload = gameLoop;
+} else {
+  console.log("Mode mobile aktif — canvas dimatikan");
+}
 
 playerImage.onload = gameLoop;
