@@ -381,5 +381,36 @@ function gameLoop() {
   checkBuildingCollision();
   requestAnimationFrame(gameLoop);
 }
-// Cek apakah layar cukup besar untuk main game
 playerImage.onload = gameLoop;
+
+// js responsive
+// 1 get class card
+const cardTitles = document.querySelectorAll(".card h2");
+
+// 2. Tambahkan event listener untuk setiap H2
+cardTitles.forEach((h2) => {
+  h2.addEventListener("click", () => {
+    // Ambil ID dari elemen card induk (parent)
+    // h2.closest('.card') mencari elemen terdekat dengan class 'card'
+    const cardElement = h2.closest(".card");
+    if (!cardElement) return; // Pastikan elemen card ditemukan
+
+    const cardId = cardElement.id;
+
+    // Cari data bangunan yang sesuai di array buildings
+    const correspondingBuilding = buildings.find((b) => b.id === cardId);
+
+    if (correspondingBuilding) {
+      // Cek apakah bangunan sedang dalam pengembangan
+      if (correspondingBuilding.underConstruction) {
+        // Tampilkan modal Under Construction
+        modalBuildingName.textContent = correspondingBuilding.name;
+        modalOverlay.style.display = "flex";
+        return;
+      }
+
+      // Redirect ke halaman yang ditentukan
+      window.location.href = correspondingBuilding.redirect;
+    }
+  });
+});

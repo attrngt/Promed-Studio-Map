@@ -1,6 +1,10 @@
+:root {
+  --warna-bg: #cac4f8;
+  --alt-warna: #4e1b48;
+}
 body {
   margin: 0;
-  background-color: #cac4f8;
+  background-color: var(--warna-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,7 +40,7 @@ canvas {
   background: url("../assets/bg3.png") no-repeat center/cover;
   display: block;
   border: 7px solid rgb(78, 27, 72); /* lapisan pertama */
-  outline: 7px solid rgb(245, 181, 246); /* lapisan pertama */
+  outline: 7px solid var(--warna-bg); /* lapisan pertama */
   image-rendering: pixelated;
 }
 .introText {
@@ -51,7 +55,7 @@ canvas {
   z-index: 9999;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
   -webkit-text-stroke: 1px #000;
-  animation: fadeOutIntro 3s ease forwards 6s;
+  animation: fadeOutIntro 3s ease forwards 5s;
 }
 
 .introText .first {
@@ -213,10 +217,15 @@ canvas {
 }
 .card {
   padding: 2em;
-  border: 1px solid rgb(75, 82, 92);
+  border: 1px solid rgb(170, 121, 190);
+  box-shadow: 0 4px 5px var(--warna-bg);
   border-radius: 10px;
-  background-color: #222429;
+  background-color: #fecefe;
   text-align: center;
+}
+.card h2 {
+  text-transform: uppercase;
+  font-family: "retro pixel", serif;
 }
 .grid-container {
   display: none;
@@ -237,13 +246,20 @@ canvas {
     visibility: hidden;
   }
 
-  /* Izinkan body untuk scroll karena konten card akan panjang */
   body {
     overflow: visible;
-    /* Atur ulang properti flex/height body agar konten mobile di tengah */
     min-height: auto;
     display: block;
-    padding: 20px; /* Tambahkan padding agar card tidak mepet */
+    padding: 20px;
+    animation: colorShift 2s ease-in-out forwards;
+  }
+  @keyframes colorShift {
+    0% {
+      background-color: var(--warna-bg); /* Warna A: Merah */
+    }
+    100% {
+      background-color: var(--alt-warna); /* Warna B: Biru */
+    }
   }
 
   /* Tampilkan grid card */
