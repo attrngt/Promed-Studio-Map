@@ -229,11 +229,12 @@ canvas {
 @media (max-width: 768px) {
   /* Sembunyikan semua elemen game/canvas */
   .canvas-wrapper,
- #gameCanvas,
-.introText, /* <-- TAMBAHAN: Sembunyikan teks intro */
-#hint {
+  #gameCanvas,
+  .introText,
+  #hint {
     /* <-- TAMBAHAN: Sembunyikan petunjuk */
     display: none !important;
+    visibility: hidden;
   }
 
   /* Izinkan body untuk scroll karena konten card akan panjang */
