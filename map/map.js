@@ -7,6 +7,7 @@ const closeModalBtn = document.getElementById("closeModalBtn");
 const loc = document.getElementById("loc");
 
 let isCollidingWithBuilding = null;
+let isModalOpen = false; // <<< VARIABEL BARU UNTUK KONTROL PERGERAKAN
 
 const playerImage = new Image();
 playerImage.src = "../assets/char33.png"; // sprite 4 baris × 3 kolom
@@ -177,14 +178,17 @@ const keys = {};
 window.addEventListener("keydown", (e) => (keys[e.key] = true));
 window.addEventListener("keyup", (e) => (keys[e.key] = false));
 
+// --- LOGIKA TUTUP MODAL ---
 closeModalBtn.addEventListener("click", () => {
   modalOverlay.style.display = "none";
+  isModalOpen = false; // <<< SET FALSE SAAT MODAL DITUTUP
 });
 
 // Opsional: Tutup juga saat mengklik di luar konten modal
 modalOverlay.addEventListener("click", (e) => {
   if (e.target === modalOverlay) {
     modalOverlay.style.display = "none";
+    isModalOpen = false; // <<< SET FALSE SAAT MODAL DITUTUP
   }
 });
 
@@ -201,6 +205,7 @@ window.addEventListener("keydown", (e) => {
       // Tampilkan modal kustom
       modalBuildingName.textContent = isCollidingWithBuilding.name;
       modalOverlay.style.display = "flex";
+      isModalOpen = true; // <<< SET TRUE SAAT MODAL DIBUKA
       return; // Hentikan fungsi di sini, tidak ada bounce atau redirect
     }
     // tujuan tersedia
@@ -214,6 +219,7 @@ window.addEventListener("keydown", (e) => {
 });
 
 function movePlayer() {
+  if (isModalOpen) return; // <<< BLOKIR PERGERAKAN JIKA MODAL TERBUKA
   if (player.crouching || player.bouncing) return;
 
   player.moving = false;
@@ -259,7 +265,8 @@ function checkBuildingCollision() {
     }
   }
 
-  if (isCollidingWithBuilding && !player.crouching) {
+  if (isCollidingWithBuilding && !player.crouching && !isModalOpen) {
+    // Ditambah pengecekan isModalOpen
     hint.style.display = "block";
     hint.textContent = `Tekan [Enter] untuk masuk ke ${isCollidingWithBuilding.name}`;
   } else {
@@ -406,6 +413,7 @@ cardTitles.forEach((h2) => {
         // Tampilkan modal Under Construction
         modalBuildingName.textContent = correspondingBuilding.name;
         modalOverlay.style.display = "flex";
+        isModalOpen = true; // <<< SET TRUE SAAT MODAL DIBUKA
         return;
       }
 

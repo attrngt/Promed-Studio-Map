@@ -225,7 +225,20 @@ canvas {
 }
 .card h2 {
   text-transform: uppercase;
+  text-shadow: 0 0 15px #fff;
   font-family: "retro pixel", serif;
+  text-shadow: -0.45px -0.45px 0 white, 0.45px -0.45px 0 white,
+    -0.45px 0.45px 0 white, 0.45px 0.45px 0 white;
+  }
+  .card span{
+    color: white;
+    text-shadow: -0.45px -0.45px 0 black, 0.45px -0.45px 0 black,
+      -0.45px 0.45px 0 black, 0.45px 0.45px 0 black;
+}
+
+
+.card p {
+  color: rgb(223, 223, 223);
 }
 .grid-container {
   display: none;
@@ -272,5 +285,8 @@ canvas {
   /* Atur card agar terlihat bagus di mode mobile */
   .card {
     padding: 1.5em; /* Sedikit kurang dari desktop */
+  }
+  .card h2:hover {
+    cursor: pointer;
   }
 }
