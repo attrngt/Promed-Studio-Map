@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ==== ANIMASI ==== */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==== SECTION: HOME ==== */
+#home {
+  background-color: rgb(94, 174, 255);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.content1 {
+  font-size: 180px;
+  font-weight: 500;
+  color: white;
+  text-align: left; 
+  opacity: 0;
+  animation: slideUp 1.2s ease-out forwards;
+}
+
+.content1:nth-child(2) {
+  animation-delay: 0.3s; /* efek naik bertahap untuk teks kedua */
+}
+
+/* ==== SECTION 1 ==== */
+#section1 {
+  background-color: rgb(94, 174, 255);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-content {
+  font-size: 180px;
+  font-weight: 500;
+  text-align: left;
+  color: black;
+  opacity: 0;
+  animation: slideUp 1.2s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+/* ==== SECTION 2 (ABOUT) ==== */
+#section2 {
+  background-image: url("img/bg3.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-box {
+  width: 50%;
+  font-size: 25px;
+  color: black;
+  text-align: left;
+}
+
+.about {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+/* ==== CORE STREAM ==== */
+#core-stream {
+  background-color: white;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ==== CONTACT ==== */
+#contact {
+  background-image: url("img/bg5.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
