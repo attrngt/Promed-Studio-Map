@@ -1,36 +1,145 @@
 <!DOCTYPE html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PromTour</title>
-    <link href="https://fonts.cdnfonts.com/css/snowbell" rel="stylesheet" />
+<html lang="en">
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="login.css" />
-    <link href="https://fonts.cdnfonts.com/css/retro-pixel" rel="stylesheet" />
-    <script src="login.js" defer></script>
-  </head>
-  <body>
-    <section id="home" class="d-flex justify-content-center align-items-start">
-      <div class="wrapper d-flex flex-column align-items-center">
-        <div class="ready">ARE YOU READY?</div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WIRE</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-        <button type="submit" id="loginMessage" class="btn btn-primary mt-5">
-          Login
-        </button>
+<body>
+  <div class="wrap">
+    <div class="containerAtas">
+      <header class="site-header">
+        <div class="brand">
+          <img src="img/wire logo.jpg" alt="wire Logo" class="brand-logo">
+        </div>
+        <nav class="main-nav">
+          <a href="#" class="active">Home</a>
+          <a href="#">Reviews</a>
+          <a href="#">Blog</a>
+          <a href="#">Contact</a>
+        </nav>
+      </header>
+    </div>
+
+
+    <section class="hero">
+      <div class="hero-inner">
+        <h2>Peminatan Musik</h2>
+        <p>
+          Peminatan Musik Produksi Media berfokus pada pengembangan keterampilan manajerial dan teknis dalam menciptakan, mengelola bisnis, dan memasarkan musik. Mahasiswa di peminatan ini mempelajari berbagai aspek seperti produksi musik, pemasaran musik, industri-bisnis musik, hak cipta dan copyrights dalam dunia musik, dan sebagainya.
+        </p>
       </div>
     </section>
+  </div>
+</body>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+<section class="wire-section">
+  <div class="wire-container">
+
+    <h2 class="wire-title">WIRE STUDIO</h2>
+
+    <p class="wire-desc">
+      WIRE adalah studio Musik dan Audio di Produksi Media UI yang berfokus pada produksi 
+      <em>(music production)</em> serta bisnis musik dan audio <em>(mini-release label)</em>. 
+      Dibentuk oleh para mahasiswa dan dosen Produksi Media konsentrasi musik, mini-label ini 
+      berfokus sebagai praktek profesional para mahasiswa dalam lingkup musik bisnis, produksi, 
+      dan pemasaran musik.
+    </p>
+
+    <p class="wire-core">
+      <strong>Core Stream(s):</strong> Artist, Engineer
+    </p>
+
+    <!-- Instagram Link -->
+    <a href="https://www.instagram.com/wirestudio.music/?hl=en" target="_blank" class="wire-instagram">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+    </a>
+
+  </div>
+</section>
+
+
+<section class="karya-section">
+
+  <h2 class="karya-title">Karya</h2>
+
+  <div class="karya-container">
+
+    <!-- CARD 1 -->
+    <a href="https://youtu.be/aeI7lVT-mMA?si=tRSgDhnAw0oN5zFt" target="_blank" class="karya-card">
+      <img src="img/try again.jpeg" alt="Karya 1">
+      <div class="karya-info">
+        <h3>Try Again</h3>
+        <p>Secret Hideaway</p>
+      </div>
+    </a>
+
+    <!-- CARD 2 -->
+    <a href="https://youtu.be/P9VIebPiAYk?si=tJqj4hzg47wbgFOC" target="_blank" class="karya-card">
+      <img src="img/pelampiasan.jpeg" alt="Karya 2">
+      <div class="karya-info">
+        <h3>Pelampiasan</h3>
+        <p>Naja Davina</p>
+      </div>
+    </a>
+
+    <!-- CARD 3 -->
+    <a href="https://youtu.be/a0sNci1qqGs?si=5YIekC_MneneKOiF" target="_blank" class="karya-card">
+      <img src="img/belenggu asmara.jpeg" alt="Karya 3">
+      <div class="karya-info">
+        <h3>Belenggu Asmara</h3>
+        <p>Jason Amadeus, Vidynta</p>
+      </div>
+    </a>
+
+  </div>
+
+</section>
+
+    <section class="contact-area">
+      <div class="map-placeholder">
+        <!-- Replace this image with your own. Keep the filename or update the src -->
+        <img src="img/447985636_985472956123027_7519974847898635371_n.webp" alt="map or illustration placeholder" >
+      </div>
+
+      <form class="contact-form" action="#" method="post" enctype="multipart/form-data">
+        <label>
+          Your Name
+          <input type="text" name="name" placeholder="Your name" />
+        </label>
+
+        <label>
+          Email
+          <input type="email" name="email" placeholder="you@example.com" />
+        </label>
+
+        <label>
+          Subject
+          <input type="text" name="subject" placeholder="Subject" />
+        </label>
+
+        <label>
+          Message
+          <textarea name="message" rows="6"
+            placeholder="Write your message...">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
+        </label>
+
+        <label class="file-label">
+          Upload image (optional)
+          <input type="file" name="image" accept="image/*" />
+        </label>
+
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </section>
+
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
 </html>
