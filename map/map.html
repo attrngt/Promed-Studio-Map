@@ -15,8 +15,25 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=group"
     />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <!-- Modal awal: pilih kontrol -->
+    <div id="startupModal" class="modal-overlay" style="display:flex;">
+      <div class="modal-content card">
+        <h2>Pilih Kontrol</h2>
+        <p>Pilih cara mengendalikan player sebelum masuk ke peta</p>
+        <div style="display:flex; gap:12px; justify-content:center; margin-top:10px;">
+          <button id="btnKeyboard" class="choiceBtn">W/A/S/D atau Arrow</button>
+          <button id="btnMouse" class="choiceBtn">Mouse(Click)</button>
+        </div>
+        <p style="font-size:0.9rem; margin-top:12px; opacity:0.9;">Kamu bisa mengganti mode di pojok kanan bawah setelah memilih.</p>
+      </div>
+    </div>
+
     <div id="underConstructionModal" class="modal-overlay">
       <div class="modal-content">
         <span id="modalBuildingName"></span>
@@ -24,14 +41,17 @@
         <button id="closeModalBtn">Back</button>
       </div>
     </div>
+
     <div class="introText">
       <div class="first">Promed Studio Map</div>
-      <div class="key">W,A,S,D or arrow to move</div>
+      <div class="key"></div>
     </div>
     <div id="hint"></div>
+
     <div class="canvas-wrapper">
       <canvas id="gameCanvas" width="1365" height="768"></canvas>
     </div>
+
     <div class="grid-container">
       <div class="card" id="orfil">
         <h2>Orang Film</h2>
@@ -89,6 +109,12 @@
         <h2><span class="material-symbols-outlined"> group </span></h2>
         <p>Key Interest: Digital Journalism</p>
       </div>
+    </div>
+
+    <!-- small control-mode indicator / toggle -->
+    <div id="controlModeWidget" class="control-widget">
+      <i class="fa fa-cog" aria-hidden="true"></i> Mode: <span id="controlModeLabel">—</span>
+      <button id="toggleControlModeBtn" title="Ganti mode kontrol">Ganti</button>
     </div>
 
     <script src="map.js"></script>

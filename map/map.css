@@ -44,6 +44,8 @@ canvas {
   image-rendering: pixelated;
 }
 .introText {
+  display: none;
+  opacity: 0;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -77,6 +79,22 @@ canvas {
   opacity: 0;
   animation: fadeInKey 1s ease forwards;
   animation-delay: 3.2s; /* muncul setelah efek mengetik selesai */
+}
+.choiceBtn{
+  background-color: var(--warna-bg);
+}
+.choiceBtn:hover {
+  color: black;
+  background: white;
+  box-shadow: 0 2px #888, 0 5px #000;
+  transform: translateY(1px);
+}
+
+.choiceBtn:active {
+  color: var(--alt-warna);
+  background: var(--warna-bg);
+  box-shadow: 0 1px #000;
+  transform: translateY(3px);
 }
 
 /* Efek mengetik */
@@ -229,13 +247,12 @@ canvas {
   font-family: "retro pixel", serif;
   text-shadow: -0.45px -0.45px 0 white, 0.45px -0.45px 0 white,
     -0.45px 0.45px 0 white, 0.45px 0.45px 0 white;
-  }
-  .card span{
-    color: white;
-    text-shadow: -0.45px -0.45px 0 black, 0.45px -0.45px 0 black,
-      -0.45px 0.45px 0 black, 0.45px 0.45px 0 black;
 }
-
+.card span {
+  color: white;
+  text-shadow: -0.45px -0.45px 0 black, 0.45px -0.45px 0 black,
+    -0.45px 0.45px 0 black, 0.45px 0.45px 0 black;
+}
 
 .card p {
   color: rgb(223, 223, 223);
@@ -253,7 +270,8 @@ canvas {
   .canvas-wrapper,
   #gameCanvas,
   .introText,
-  #hint {
+  #hint,
+  .modal-overlay, .control-widget {
     /* <-- TAMBAHAN: Sembunyikan petunjuk */
     display: none !important;
     visibility: hidden;
@@ -289,4 +307,54 @@ canvas {
   .card h2:hover {
     cursor: pointer;
   }
+}
+
+/* --- Fancy Retro Control Widget --- */
+.control-widget {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background: linear-gradient(180deg, #f7f7f7 0%, #dddddd 100%);
+  border: 4px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  padding: 10px 14px;
+  border-radius: 0;
+  font-family: "retro-pixel", monospace;
+  font-size: 0.9rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+  image-rendering: pixelated;
+}
+
+.control-widget::before {
+  content: attr(data-icon);
+  font-family: "retro-pixel", monospace;
+  font-size: 1rem;
+  margin-right: 4px;
+  padding-right: 6px;
+  border-right: 2px solid #000;
+}
+
+/* Button inside widget */
+.control-widget button {
+  background: #fff;
+  border: 3px solid #000;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: "retro-pixel", monospace;
+  font-size: 0.85rem;
+  box-shadow: 3px 3px 0 #000;
+  transition: transform 0.08s;
+}
+
+.control-widget button:hover {
+  background: #e2e2e2;
+}
+
+.control-widget button:active {
+  transform: translateY(2px);
+  box-shadow: 1px 1px 0 #000;
 }
