@@ -1,5 +1,6 @@
 /* map.js - updated: dynamic control hints + startup modal before introText */
 /* Assumes assets and buildings array present as before */
+/*UDAH FIX GAUSAH DIUBAH */
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -119,7 +120,7 @@ const player = {
   x: 700,
   y: 600,
   size: 64,
-  speed: 4,
+  speed: 5,
   frameX: 1,
   frameY: 0,
   frameCount: 0,
