@@ -1,91 +1,119 @@
+/* map.js - updated: dynamic control hints + startup modal before introText */
+/* Assumes assets and buildings array present as before */
+
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 const hint = document.getElementById("hint");
 const modalOverlay = document.getElementById("underConstructionModal");
 const modalBuildingName = document.getElementById("modalBuildingName");
 const closeModalBtn = document.getElementById("closeModalBtn");
-const loc = document.getElementById("loc");
 
+const startupModal = document.getElementById("startupModal");
+const btnKeyboard = document.getElementById("btnKeyboard");
+const btnMouse = document.getElementById("btnMouse");
+const controlModeLabel = document.getElementById("controlModeLabel");
+const toggleControlModeBtn = document.getElementById("toggleControlModeBtn");
+const controlModeWidget = document.getElementById("controlModeWidget");
+const introTextEl = document.querySelector(".introText");
+
+let controlMode = null; // 'keyboard' or 'mouse'
 let isCollidingWithBuilding = null;
 let isModalOpen = false;
 
-// --- BARU: LOGIKA PETUNJUK KONTROL ---
-const CONTROL_TIMEOUT = 3000; //millisecond
+// --- HINT / TIMER ---
+const CONTROL_TIMEOUT = 3000; //ms
 let lastInputTime = Date.now();
 let controlHintTimeout = null;
 
 function showControlHint() {
-  // Pastikan petunjuk bangunan tidak ditampilkan saat petunjuk kontrol ditampilkan
+  // don't overwrite the Enter hint (collision hint)
   if (
     hint.style.display !== "none" &&
     hint.textContent.includes("Tekan [Enter]")
   ) {
-    return; // Jangan tampilkan petunjuk kontrol jika petunjuk Enter sedang aktif
+    return;
   }
 
   hint.style.display = "block";
-  hint.textContent = "W,A,S,D or Arrow to move."; // <<< TEKS INSTRUKSI SESUAI PERMINTAAN
+
+  if (controlMode === "keyboard") {
+    hint.textContent = "W / A / S / D or Arrow Keys";
+  } else if (controlMode === "mouse") {
+    hint.textContent = "Klik pada peta untuk bergerak";
+  } else {
+    // fallback generic
+    hint.textContent = "Pilih mode kontrol";
+  }
 }
 
+function clearControlHintTimeout() {
+  if (controlHintTimeout) {
+    clearTimeout(controlHintTimeout);
+    controlHintTimeout = null;
+  }
+}
+
+/**
+ * resetControlTimer(key)
+ * - key: optional keyboard key that triggered the reset (string)
+ * Behavior:
+ * - In keyboard mode, only keyboard keys count as input.
+ * - In mouse mode, calling resetControlTimer() with no param or with 'mouse' counts as input.
+ */
 function resetControlTimer(key = null) {
-  // Tombol valid termasuk tombol aksi seperti Enter
+  // valid keyboard keys we consider as input (for showing keyboard hint)
   const validKeys = [
     "w",
     "a",
     "s",
     "d",
+    "W",
+    "A",
+    "S",
+    "D",
     "ArrowUp",
     "ArrowDown",
     "ArrowLeft",
     "ArrowRight",
     "Enter",
+    " ",
   ];
 
-  // Jika key diberikan dan BUKAN tombol valid, anggap sebagai kesalahan
-  if (key && !validKeys.includes(key) && !isModalOpen) {
-    // Pemain menekan tombol yang salah: tampilkan instruksi kontrol segera
-    if (controlHintTimeout) {
-      clearTimeout(controlHintTimeout);
+  // If modal open, do nothing
+  if (isModalOpen) return;
+
+  // Decide whether this event should show the hint now
+  let shouldShow = false;
+  if (controlMode === "keyboard") {
+    if (key && validKeys.includes(key)) {
+      shouldShow = true;
+    } else if (!key) {
+      // generic activation (e.g., after selecting mode) -> show hint
+      shouldShow = true;
     }
+  } else if (controlMode === "mouse") {
+    // mouse mode: any explicit call or a 'mouse' marker should trigger hint
+    shouldShow = true;
+  } else {
+    // no mode yet -> show generic
+    shouldShow = true;
+  }
+
+  if (shouldShow) {
+    clearControlHintTimeout();
     showControlHint();
-    // Atur timer agar petunjuk hilang setelah 3 detik
     controlHintTimeout = setTimeout(() => {
-      if (!isCollidingWithBuilding) {
-        hint.style.display = "none";
-      }
-      controlHintTimeout = null; // Setel ulang setelah selesai
-    }, 3000); // Tampilkan sebentar, lalu sembunyikan jika tidak ada tabrakan bangunan
-
-    // Reset lastInputTime agar timer 4 detik mulai lagi
+      if (!isCollidingWithBuilding) hint.style.display = "none";
+      controlHintTimeout = null;
+    }, CONTROL_TIMEOUT);
     lastInputTime = Date.now();
-    return;
-  }
-
-  // Jika tombol valid atau dipanggil dari gameLoop (pergerakan)
-  lastInputTime = Date.now();
-
-  // Sembunyikan petunjuk kontrol jika sedang ditampilkan
-  if (hint.textContent.includes("W,A,S,D or Arrow to move.")) {
-    hint.style.display = "none";
-  }
-
-  // Hentikan timeout yang sedang berjalan
-  if (controlHintTimeout) {
-    clearTimeout(controlHintTimeout);
-    controlHintTimeout = null;
-  }
-
-  // Atur ulang timeout baru untuk menampilkan petunjuk kontrol jika pemain diam
-  // Hanya jika modal tidak terbuka
-  if (!isModalOpen) {
-    controlHintTimeout = setTimeout(showControlHint, CONTROL_TIMEOUT);
   }
 }
+// --- end hint/timer ---
 
-// --- AKHIR LOGIKA PETUNJUK KONTROL ---
-
+// Player sprite
 const playerImage = new Image();
-playerImage.src = "../assets/char33.png"; // sprite 4 baris × 3 kolom
+playerImage.src = "../assets/char33.png";
 
 const player = {
   x: 700,
@@ -106,6 +134,7 @@ const player = {
   opacity: 1,
 };
 
+// buildings array (paste your building list here if not present)
 const buildings = [
   {
     id: "wire",
@@ -185,7 +214,7 @@ const buildings = [
     width: 120,
     height: 120,
     redirect: "#",
-    _underConstruction: true,
+    underConstruction: true,
   },
   {
     id: "mosaic",
@@ -251,73 +280,146 @@ const buildings = [
 
 const keys = {};
 window.addEventListener("keydown", (e) => {
-  keys[e.key] = true;
-  // Panggil resetControlTimer pada setiap penekanan tombol
-  // Kecuali jika modal sedang terbuka
-  if (!isModalOpen) {
+  if (controlMode === "keyboard") {
+    keys[e.key] = true;
     resetControlTimer(e.key);
   }
 });
-
-window.addEventListener("keyup", (e) => (keys[e.key] = false));
-
-// --- LOGIKA TUTUP MODAL ---
-closeModalBtn.addEventListener("click", () => {
-  modalOverlay.style.display = "none";
-  isModalOpen = false; // <<< SET FALSE SAAT MODAL DITUTUP
-  resetControlTimer(); // Reset timer setelah modal ditutup
+window.addEventListener("keyup", (e) => {
+  if (controlMode === "keyboard") keys[e.key] = false;
 });
 
-// Opsional: Tutup juga saat mengklik di luar konten modal
+// Modal logic
+closeModalBtn.addEventListener("click", () => {
+  modalOverlay.style.display = "none";
+  isModalOpen = false;
+  resetControlTimer();
+});
 modalOverlay.addEventListener("click", (e) => {
   if (e.target === modalOverlay) {
     modalOverlay.style.display = "none";
-    isModalOpen = false; // <<< SET FALSE SAAT MODAL DITUTUP
-    resetControlTimer(); // Reset timer setelah modal ditutup
+    isModalOpen = false;
+    resetControlTimer();
   }
 });
 
-// tekan Enter untuk masuk bangunan (dengan efek bounce)
+// Enter behavior for keyboard mode
 window.addEventListener("keydown", (e) => {
-  // Pindahkan logika Enter ke sini, tapi reset timer sudah ditangani di event listener keydown umum
   if (
     e.key === "Enter" &&
+    controlMode === "keyboard" &&
     isCollidingWithBuilding &&
     !player.crouching &&
     !player.bouncing &&
     !isModalOpen
   ) {
-    // Pastikan modal tidak terbuka
-    // Cek apakah bangunan sedang dalam pengembangan
     if (isCollidingWithBuilding.underConstruction) {
-      // Tampilkan modal kustom
       modalBuildingName.textContent = isCollidingWithBuilding.name;
       modalOverlay.style.display = "flex";
-      isModalOpen = true; // <<< SET TRUE SAAT MODAL DIBUKA
-
-      // Hentikan timer petunjuk kontrol saat modal terbuka
-      if (controlHintTimeout) {
-        clearTimeout(controlHintTimeout);
-        controlHintTimeout = null;
-      }
-      hint.style.display = "none"; // Sembunyikan petunjuk [Enter]
+      isModalOpen = true;
+      clearControlHintTimeout();
+      hint.style.display = "none";
       return;
-    } // tujuan tersedia
+    }
     player.bouncing = true;
-    player.bounceFrame = 0; // setelah efek bounce selesai, pindah halaman
-
+    player.bounceFrame = 0;
     setTimeout(() => {
       window.location.href = isCollidingWithBuilding.redirect;
     }, 500);
   }
 });
 
-function movePlayer() {
-  if (isModalOpen) return; // <<< BLOKIR PERGERAKAN JIKA MODAL TERBUKA
+// MOUSE MOVEMENT
+let mouseTarget = null; // {x,y,arriveCallback}
+let showTargetMarker = false;
+
+canvas.addEventListener("click", (e) => {
+  if (controlMode !== "mouse" || isModalOpen) return;
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const x = (e.clientX - rect.left) * scaleX;
+  const y = (e.clientY - rect.top) * scaleY;
+
+  const clickedBuilding = buildings.find(
+    (b) => x >= b.x && x <= b.x + b.width && y >= b.y && y <= b.y + b.height
+  );
+  if (clickedBuilding) {
+    if (clickedBuilding.underConstruction) {
+      modalBuildingName.textContent = clickedBuilding.name;
+      modalOverlay.style.display = "flex";
+      isModalOpen = true;
+      clearControlHintTimeout();
+      hint.style.display = "none";
+      return;
+    } else {
+      mouseTarget = {
+        x: clickedBuilding.x + clickedBuilding.width / 2 - player.size / 2,
+        y: clickedBuilding.y + clickedBuilding.height / 2 - player.size / 2,
+        arriveCallback: () => {
+          player.bouncing = true;
+          player.bounceFrame = 0;
+          setTimeout(() => {
+            window.location.href = clickedBuilding.redirect;
+          }, 500);
+        },
+      };
+      showTargetMarker = true;
+      resetControlTimer(); // mouse input
+      return;
+    }
+  }
+
+  mouseTarget = {
+    x: x - player.size / 2,
+    y: y - player.size / 2,
+    arriveCallback: null,
+  };
+  showTargetMarker = true;
+  resetControlTimer(); // mouse input
+});
+
+function moveTowardsTarget() {
+  if (!mouseTarget) return;
+  const tx = mouseTarget.x;
+  const ty = mouseTarget.y;
+  const dx = tx - player.x;
+  const dy = ty - player.y;
+  const dist = Math.hypot(dx, dy);
+  if (dist < 2) {
+    player.x = tx;
+    player.y = ty;
+    if (mouseTarget.arriveCallback) {
+      mouseTarget.arriveCallback();
+      mouseTarget = null;
+      showTargetMarker = false;
+      return;
+    }
+    mouseTarget = null;
+    showTargetMarker = false;
+    return;
+  }
+  const vx = (dx / dist) * player.speed;
+  const vy = (dy / dist) * player.speed;
+  player.x += vx;
+  player.y += vy;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    player.frameY = dx > 0 ? 2 : 1;
+  } else {
+    player.frameY = dy > 0 ? 0 : 3;
+  }
+  player.moving = true;
+  lastInputTime = Date.now();
+}
+
+// KEYBOARD MOVEMENT
+function movePlayerKeyboard() {
+  if (isModalOpen) return;
   if (player.crouching || player.bouncing) return;
 
-  const wasMoving = player.moving; // Simpan status pergerakan sebelumnya
-  player.moving = false; // Logika pergerakan menggunakan keyboard (Arrow Keys dan WASD)
+  const wasMoving = player.moving;
+  player.moving = false;
 
   const isMovingNow =
     keys["ArrowUp"] ||
@@ -351,27 +453,12 @@ function movePlayer() {
       player.moving = true;
     }
 
-    // Jika pemain baru mulai bergerak (tombol ditekan)
-    // resetControlTimer() sudah menangani ini di event 'keydown'
-
-    // Jika pemain menahan tombol (tetap bergerak)
-    if (player.moving) {
-      lastInputTime = Date.now(); // Terus update lastInputTime selama bergerak
-      // Hapus timer timeout jika ada (agar tidak muncul saat bergerak)
-      if (controlHintTimeout) {
-        clearTimeout(controlHintTimeout);
-        controlHintTimeout = null;
-      }
-      // Pastikan petunjuk kontrol tersembunyi
-      if (hint.textContent.includes("W,A,S,D or Arrow to move.")) {
-        hint.style.display = "none";
-      }
-    }
+    lastInputTime = Date.now();
+    clearControlHintTimeout();
+    if (hint.textContent.includes("Gerak:")) hint.style.display = "none";
   } else {
-    // Jika pemain berhenti bergerak (tombol dilepas)
     if (wasMoving && !player.moving) {
-      // Mulai timer baru 4 detik
-      resetControlTimer();
+      resetControlTimer(); // will show hint again after timeout
     }
   }
 
@@ -379,6 +466,7 @@ function movePlayer() {
   player.y = Math.max(0, Math.min(canvas.height - player.size, player.y));
 }
 
+// COLLISION DETECTION
 function checkBuildingCollision() {
   isCollidingWithBuilding = null;
   for (let b of buildings) {
@@ -394,26 +482,18 @@ function checkBuildingCollision() {
   }
 
   if (isCollidingWithBuilding && !player.crouching && !isModalOpen) {
-    // Jika berdekatan dengan bangunan, hentikan timeout petunjuk kontrol dan tampilkan petunjuk Enter
-    if (controlHintTimeout) {
-      clearTimeout(controlHintTimeout);
-      controlHintTimeout = null;
-    }
+    clearControlHintTimeout();
     hint.style.display = "block";
     hint.textContent = `Tekan [Enter] untuk masuk ke ${isCollidingWithBuilding.name}`;
   } else if (!isCollidingWithBuilding && !isModalOpen) {
-    // Jika tidak berdekatan DAN modal tidak terbuka
-    // Jangan sembunyikan jika petunjuk kontrol sedang aktif karena timeout/kesalahan
-    if (hint.textContent.includes("Tekan [Enter]")) {
-      hint.style.display = "none";
-    }
-    // Jika timer belum ada, mulai timer 4 detik (misalnya setelah menjauh dari gedung)
+    if (hint.textContent.includes("Tekan [Enter]")) hint.style.display = "none";
     if (!controlHintTimeout && Date.now() - lastInputTime > 100) {
-      // Sedikit buffer
       resetControlTimer();
     }
   }
 }
+
+// DRAWING
 function drawBuildingsMock() {
   ctx.fillStyle = "transparent";
   ctx.font = "13px 'snowbell', sans-serif";
@@ -422,33 +502,37 @@ function drawBuildingsMock() {
   ctx.lineWidth = 3;
 
   buildings.forEach((b) => {
-    // Gambarkan area tabrakan (hitbox) bangunan
-    ctx.fillRect(b.x, b.y, b.width, b.height); // --- Setup untuk Teks ---
-
+    ctx.fillRect(b.x, b.y, b.width, b.height);
     const textX = b.x + b.width / 2;
     const textY = b.y + b.height / 2 - 20;
-    const uppercaseName = b.name.toUpperCase(); // 1. Gambar Outline (Stroke)
-
-    // --- INI YANG DIGANTI ---
-    ctx.strokeText(uppercaseName, textX, textY); // <-- Saya salah ketik 'T.strokeText' sebelumnya // 2. Gambar Isi Teks (Fill) di atas Outline
-
+    const uppercaseName = b.name.toUpperCase();
+    ctx.strokeText(uppercaseName, textX, textY);
     ctx.fillStyle = "white";
-    ctx.fillText(uppercaseName, textX, textY); // Kembalikan fillStyle untuk bangunan mock berikutnya
-
+    ctx.fillText(uppercaseName, textX, textY);
     ctx.fillStyle = "transparent";
   });
+}
+
+function drawTargetMarker() {
+  if (!showTargetMarker || !mouseTarget) return;
+  ctx.save();
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 2;
+  ctx.setLineDash([4, 3]);
+  ctx.strokeRect(mouseTarget.x, mouseTarget.y, player.size, player.size);
+  ctx.restore();
 }
 
 function drawPlayer() {
   const cols = 4;
   const rows = 4;
   const spriteWidth = playerImage.width / cols;
-  const spriteHeight = playerImage.height / rows; // efek bounce (mantul halus)
+  const spriteHeight = playerImage.height / rows;
 
   if (player.bouncing) {
     player.bounceFrame++;
-    const t = player.bounceFrame / 15; // durasi ±0.25 detik
-    player.scale = 1 + Math.sin(t * Math.PI) * 0.3; // scale naik 15%
+    const t = player.bounceFrame / 15;
+    player.scale = 1 + Math.sin(t * Math.PI) * 0.3;
     if (player.bounceFrame >= 15) {
       player.bouncing = false;
       player.scale = 1;
@@ -457,8 +541,8 @@ function drawPlayer() {
 
   if (player.blinking) {
     player.blinkFrame++;
-    const t = player.blinkFrame / 15; // durasi ±0.25 detik
-    player.opacity = 0.5 + Math.sin(t * Math.PI) * 0.5; // opacity 0 ~ 1
+    const t = player.blinkFrame / 15;
+    player.opacity = 0.5 + Math.sin(t * Math.PI) * 0.5;
     if (player.blinkFrame >= 15) {
       player.blinking = false;
       player.blinkFrame = 0;
@@ -466,7 +550,7 @@ function drawPlayer() {
     }
   } else {
     player.opacity = 1;
-  } // efek idle (gerak halus kecil)
+  }
 
   if (!player.moving && !player.bouncing) {
     player.idleOffset = Math.sin(Date.now() / 300) * 1.5;
@@ -478,19 +562,18 @@ function drawPlayer() {
     player.frameX = 1;
   } else if (player.moving) {
     player.frameCount++;
-    if (player.frameCount % 10 === 0) {
+    if (player.frameCount % 10 === 0)
       player.frameX = (player.frameX + 1) % cols;
-    }
   } else {
     player.frameX = 1;
-  } // Logika Blink
+  }
+
   if (
     !player.moving &&
     !player.bouncing &&
     !player.blinking &&
     Math.random() < 0.005
   ) {
-    // Ditambah Math.random agar tidak selalu berkedip
     player.blinking = true;
     player.blinkFrame = 0;
   }
@@ -500,7 +583,8 @@ function drawPlayer() {
   const offsetY = player.y - (scaledSize - player.size) / 2;
 
   ctx.save();
-  ctx.globalAlpha = player.opacity; // gunakan opacity untuk kedip
+  ctx.globalAlpha = player.opacity;
+  ctx.imageSmoothingEnabled = false; // pixelated draw
   ctx.drawImage(
     playerImage,
     player.frameX * spriteWidth,
@@ -515,58 +599,85 @@ function drawPlayer() {
   ctx.restore();
 }
 
+// GAME LOOP
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  movePlayer();
+
+  // movement selection
+  player.moving = false;
+  if (controlMode === "keyboard") {
+    movePlayerKeyboard();
+  } else if (controlMode === "mouse") {
+    moveTowardsTarget();
+  }
+
   drawPlayer();
   drawBuildingsMock();
+  drawTargetMarker();
   checkBuildingCollision();
-
-  // Logika Cek Timeout sekarang dikelola sepenuhnya oleh resetControlTimer
-  // dan setTimeout di dalamnya, tidak perlu pengecekan manual di gameLoop
-  // kecuali saat pertama kali memuat.
 
   requestAnimationFrame(gameLoop);
 }
 
-playerImage.onload = () => {
-  resetControlTimer(); // Mulai timer 4 detik saat gambar selesai dimuat
-  gameLoop(); // Mulai game loop
-};
+// STARTUP MODAL HANDLERS
+function setControlMode(mode) {
+  controlMode = mode;
+  controlModeLabel.textContent =
+    mode === "keyboard" ? "Keyboard" : "Mouse (Click)";
+  startupModal.style.display = "none";
 
-// js responsive
-// 1 get class card
+  // Reveal introText after user chooses mode (introText initially hidden via CSS)
+  if (introTextEl) {
+    introTextEl.style.display = "block";
+    // small timeout to allow any CSS transition/animation to trigger
+    setTimeout(() => {
+      introTextEl.style.opacity = 1;
+    }, 50);
+  }
+
+  resetControlTimer(); // initial hint
+  controlModeWidget.style.display = "block";
+}
+
+btnKeyboard.addEventListener("click", () => setControlMode("keyboard"));
+btnMouse.addEventListener("click", () => setControlMode("mouse"));
+
+toggleControlModeBtn.addEventListener("click", () => {
+  const newMode = controlMode === "keyboard" ? "mouse" : "keyboard";
+  setControlMode(newMode);
+});
+
+controlModeWidget.style.display = "none";
+
+// CARD clicks -> building redirect / modal
 const cardTitles = document.querySelectorAll(".card h2");
-
-// 2. Tambahkan event listener untuk setiap H2
 cardTitles.forEach((h2) => {
   h2.addEventListener("click", () => {
-    // Ambil ID dari elemen card induk (parent)
-    // h2.closest('.card') mencari elemen terdekat dengan class 'card'
     const cardElement = h2.closest(".card");
-    if (!cardElement) return; // Pastikan elemen card ditemukan
-
-    const cardId = cardElement.id; // Cari data bangunan yang sesuai di array buildings
-
+    if (!cardElement) return;
+    const cardId = cardElement.id;
     const correspondingBuilding = buildings.find((b) => b.id === cardId);
-
     if (correspondingBuilding) {
-      // Cek apakah bangunan sedang dalam pengembangan
       if (correspondingBuilding.underConstruction) {
-        // Tampilkan modal Under Construction
         modalBuildingName.textContent = correspondingBuilding.name;
         modalOverlay.style.display = "flex";
-        isModalOpen = true; // <<< SET TRUE SAAT MODAL DIBUKA
-
-        // Hentikan timer petunjuk kontrol saat modal terbuka
-        if (controlHintTimeout) {
-          clearTimeout(controlHintTimeout);
-          controlHintTimeout = null;
-        }
+        isModalOpen = true;
+        clearControlHintTimeout();
         return;
-      } // Redirect ke halaman yang ditentukan
-
+      }
       window.location.href = correspondingBuilding.redirect;
     }
   });
+});
+
+// Start loop after sprite loads
+playerImage.onload = () => {
+  gameLoop();
+};
+
+// Prevent clicks on modal background from propagating to canvas
+startupModal.addEventListener("click", (e) => {
+  if (e.target === startupModal) {
+    e.stopPropagation();
+  }
 });
