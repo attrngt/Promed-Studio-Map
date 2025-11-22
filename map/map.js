@@ -1,6 +1,5 @@
-/* map.js - updated: dynamic control hints + startup modal before introText */
+/* map.js - startup modal removed: auto-select keyboard mode + show control widget */
 /* Assumes assets and buildings array present as before */
-/*UDAH FIX GAUSAH DIUBAH */
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -9,9 +8,7 @@ const modalOverlay = document.getElementById("underConstructionModal");
 const modalBuildingName = document.getElementById("modalBuildingName");
 const closeModalBtn = document.getElementById("closeModalBtn");
 
-const startupModal = document.getElementById("startupModal");
-const btnKeyboard = document.getElementById("btnKeyboard");
-const btnMouse = document.getElementById("btnMouse");
+// startup modal removed — no btnKeyboard / btnMouse
 const controlModeLabel = document.getElementById("controlModeLabel");
 const toggleControlModeBtn = document.getElementById("toggleControlModeBtn");
 const controlModeWidget = document.getElementById("controlModeWidget");
@@ -54,15 +51,7 @@ function clearControlHintTimeout() {
   }
 }
 
-/**
- * resetControlTimer(key)
- * - key: optional keyboard key that triggered the reset (string)
- * Behavior:
- * - In keyboard mode, only keyboard keys count as input.
- * - In mouse mode, calling resetControlTimer() with no param or with 'mouse' counts as input.
- */
 function resetControlTimer(key = null) {
-  // valid keyboard keys we consider as input (for showing keyboard hint)
   const validKeys = [
     "w",
     "a",
@@ -80,23 +69,18 @@ function resetControlTimer(key = null) {
     " ",
   ];
 
-  // If modal open, do nothing
   if (isModalOpen) return;
 
-  // Decide whether this event should show the hint now
   let shouldShow = false;
   if (controlMode === "keyboard") {
     if (key && validKeys.includes(key)) {
       shouldShow = true;
     } else if (!key) {
-      // generic activation (e.g., after selecting mode) -> show hint
       shouldShow = true;
     }
   } else if (controlMode === "mouse") {
-    // mouse mode: any explicit call or a 'mouse' marker should trigger hint
     shouldShow = true;
   } else {
-    // no mode yet -> show generic
     shouldShow = true;
   }
 
@@ -620,35 +604,30 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// STARTUP MODAL HANDLERS
+// CONTROL MODE HANDLERS
 function setControlMode(mode) {
   controlMode = mode;
   controlModeLabel.textContent =
     mode === "keyboard" ? "Keyboard" : "Mouse (Click)";
-  startupModal.style.display = "none";
 
-  // Reveal introText after user chooses mode (introText initially hidden via CSS)
+  // Reveal introText and control widget
   if (introTextEl) {
     introTextEl.style.display = "block";
-    // small timeout to allow any CSS transition/animation to trigger
     setTimeout(() => {
       introTextEl.style.opacity = 1;
     }, 50);
   }
 
-  resetControlTimer(); // initial hint
   controlModeWidget.style.display = "block";
+
+  resetControlTimer(); // initial hint
 }
 
-btnKeyboard.addEventListener("click", () => setControlMode("keyboard"));
-btnMouse.addEventListener("click", () => setControlMode("mouse"));
-
+// Allow toggling between modes with the widget
 toggleControlModeBtn.addEventListener("click", () => {
   const newMode = controlMode === "keyboard" ? "mouse" : "keyboard";
   setControlMode(newMode);
 });
-
-controlModeWidget.style.display = "none";
 
 // CARD clicks -> building redirect / modal
 const cardTitles = document.querySelectorAll(".card h2");
@@ -673,12 +652,10 @@ cardTitles.forEach((h2) => {
 
 // Start loop after sprite loads
 playerImage.onload = () => {
+  // Auto-select keyboard mode on startup (no modal)
+  setControlMode("keyboard");
   gameLoop();
 };
 
 // Prevent clicks on modal background from propagating to canvas
-startupModal.addEventListener("click", (e) => {
-  if (e.target === startupModal) {
-    e.stopPropagation();
-  }
-});
+// (startup modal removed so no listener here)

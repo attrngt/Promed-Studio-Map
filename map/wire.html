@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WIRE</title>
+    <link rel="stylesheet" href="wire.css" />
+    <link
+    rel="icon"
+    href="data:image/svg+xml, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎸</text></svg>"
+    />
+    <script src="wire.js" defer></script>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="containerAtas" id="home">
+        <header class="site-header">
+          <div class="brand">
+            <img
+              src="../img/wire logo baru.jpeg"
+              alt="WIRE Logo"
+              class="brand-logo"
+            />
+          </div>
+
+          <nav class="main-nav">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#karya">Karya</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </header>
+      </div>
+
+      <!-- HERO -->
+      <section class="hero" id="about">
+        <div class="hero-inner">
+          <h2>Peminatan Musik</h2>
+          <p>
+            Peminatan Musik Produksi Media berfokus pada pengembangan
+            keterampilan manajerial dan teknis dalam menciptakan, mengelola
+            bisnis, dan memasarkan musik. Mahasiswa di peminatan ini mempelajari
+            berbagai aspek seperti produksi musik, pemasaran musik,
+            industri-bisnis musik, hak cipta dan copyrights dalam dunia musik,
+            dan sebagainya.
+          </p>
+        </div>
+      </section>
+    </div>
+    <!-- END WRAP -->
+
+    <!-- WIRE SECTION -->
+    <section class="wire-section">
+      <div class="wire-container">
+        <h2 class="wire-title">WIRE STUDIO</h2>
+
+        <p class="wire-desc">
+          WIRE adalah studio Musik dan Audio di Produksi Media UI yang berfokus
+          pada produksi
+          <em>(music production)</em> serta bisnis musik dan audio
+          <em>(mini-release label)</em>. Dibentuk oleh para mahasiswa dan dosen
+          Produksi Media konsentrasi musik, mini-label ini berfokus sebagai
+          praktek profesional para mahasiswa dalam lingkup musik bisnis,
+          produksi, dan pemasaran musik.
+        </p>
+
+        <p class="wire-core">
+          <strong>Core Stream(s):</strong> Artist, Engineer
+        </p>
+
+        <a
+          href="https://www.instagram.com/wirestudio.music/?hl=en"
+          target="_blank"
+          class="wire-instagram"
+        >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+            alt="Instagram"
+          />
+        </a>
+      </div>
+    </section>
+
+    <!-- KARYA SECTION -->
+    <section class="karya-section" id="karya">
+      <h2 class="karya-title">Karya</h2>
+      <div class="karya-container">
+        <!-- CARD 1 -->
+        <a
+          href="https://youtu.be/aeI7lVT-mMA?si=tRSgDhnAw0oN5zFt"
+          target="_blank"
+          class="karya-card"
+        >
+          <img src="../img/try again.jpeg" alt="Karya 1" />
+          <div class="karya-info">
+            <h3>Try Again</h3>
+            <p>Secret Hideaway</p>
+          </div>
+        </a>
+
+        <!-- CARD 2 -->
+        <a
+          href="https://youtu.be/P9VIebPiAYk?si=tJqj4hzg47wbgFOC"
+          target="_blank"
+          class="karya-card"
+        >
+          <img src="../img/pelampiasan.jpeg" alt="Karya 2" />
+          <div class="karya-info">
+            <h3>Pelampiasan</h3>
+            <p>Naja Davina</p>
+          </div>
+        </a>
+
+        <!-- CARD 3 -->
+        <a
+          href="https://youtu.be/a0sNci1qqGs?si=5YIekC_MneneKOiF"
+          target="_blank"
+          class="karya-card"
+        >
+          <img src="../img/belenggu asmara.jpeg" alt="Karya 3" />
+          <div class="karya-info">
+            <h3>Belenggu Asmara</h3>
+            <p>Jason Amadeus, Vidynta</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-area" id="contact">
+      <div class="map-placeholder">
+        <img
+          src="../img/447985636_985472956123027_7519974847898635371_n.webp"
+          alt="map placeholder"
+        />
+      </div>
+
+      <div>
+        <h2 class="contact-title">Contact Us!</h2>
+
+        <form
+          class="contact-form"
+          action="#"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <label>
+            Your Name
+            <input type="text" name="name" placeholder="Your name" />
+          </label>
+
+          <label>
+            Email
+            <input type="email" name="email" placeholder="you@example.com" />
+          </label>
+
+          <label>
+            Subject
+            <input type="text" name="subject" placeholder="Subject" />
+          </label>
+
+          <label>
+            Message
+            <textarea
+              name="message"
+              rows="6"
+              placeholder="Write your message..."
+            ></textarea>
+          </label>
+
+          <label class="file-label">
+            Upload image (optional)
+            <input type="file" name="image" accept="image/*" />
+          </label>
+
+          <button type="submit" class="btn">Send Message</button>
+        </form>
+      </div>
+    </section>
+    <footer class="footer" id="footer">
+      <style>
+        .footer {
+          position: relative;
+          bottom: 0;
+          width: 100%;
+          height: 60%;
+          align-content: center;
+          padding: 40px 0;
+          /* background: linear-gradient(360deg, #d4ff00, #3170d7); */
+        }
+  
+        .footer-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+  
+        .btn-pixel {
+          font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+            "Helvetica Neue", Arial;
+          font-size: 1.3rem;
+          color: white;
+          background: #607759;
+          border: 4px solid #d2d2d2;
+          border-radius: 30px;
+          padding: 9px 10px;
+          text-transform: uppercase;
+          cursor: pointer;
+          box-shadow: 0 4px #888, 0 8px #000000;
+          transition: all 0.1s ease-in-out;
+          image-rendering: pixelated;
+        }
+  
+        .btn-pixel:hover {
+          color: #607759;
+          background: white;
+          box-shadow: 0 2px #888, 0 4px #000;
+          transform: translateY(1px);
+        }
+  
+        .btn-pixel:active {
+          color: white;
+          background: #607759;
+          box-shadow: 0 0 #000;
+          transform: translateY(3px);
+        }
+      </style>
+      <div class="footer-container">
+        <div class="footer-button">
+          <button
+            onclick="window.location.href='../map/map.html'"
+            class="btn-pixel"
+          >
+            OUR MAP
+          </button>
+        </div>
+      </div>
+    </footer>
+    <button id="scrollTopBtn">↑</button>
+    <p>©<span id="year"></span> WIRE Studio</p>
+  </body>
+</html>
