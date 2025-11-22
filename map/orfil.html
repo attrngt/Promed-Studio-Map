@@ -5,193 +5,323 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ORANG FILM UI</title>
-    <link rel="stylesheet" href="../map/orfil.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link
+      rel="icon"
+      href="data:image/svg+xml, <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎥</text></svg>"
+    />
+    <link rel="stylesheet" href="orfil.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
   </head>
+
   <body>
     <!-- header section starts  -->
-
     <header>
-      <input type="checkbox" name="" id="toggler" />
-      <label for="toggler" class="fas fa-bars"></label>
+      <a href="#" class="logo">
+        <img
+          src="../img/orfilLogo.jpg"
+          alt="ORFILM UI Logo"
+          class="header-logo"
+        />
+        ORFILM<span>.</span>UI
+      </a>
 
-      <a href="#" class="logo">ORFILM<span>.</span>UI</span></a>
-
-      <nav class="navbar">
-        <a href="#home">home</a>
+      <nav class="navbar" role="navigation" aria-label="Main Navigation">
         <a href="#about">about</a>
         <a href="#gallery">gallery</a>
         <a href="#artwork">artwork</a>
         <a href="#contact">contact</a>
       </nav>
-
-      <div class="icons">
-        <a href="#" class="fas fa-heart"></a>
-        <a href="#" class="fas fa-shopping-cart"></a>
-        <a href="#" class="fas fa-user"></a>
-      </div>
     </header>
     <!-- header section ends  -->
 
-    <!-- home section starts -->
-    <section id="home" class="home">
-      <div class="studio">STUDIO</div>
-      
-      <div class="content">
-        <div class="left">
-          <img src="img/logo.jpg" alt="Orang Film Logo" class="logo-img" />
-        </div>
+    <div class="container-fluid mt-5 p-0">
+      <div class="card bg-black">
+        <!-- about section starts -->
+        <section id="about" class="about-section">
+          <h1 class="section-title">ABOUT ORFILM UI</h1>
 
-        <div class="right">
-          <h3>PEMINATAN</h3>
-          <p>Filmografi, Videografi,<br>dan Fotografi</p>
-        </div>
-      </div>
+          <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-md-6">
+              <h2 class="big-title text-center">ORANG FILM UI</h2>
 
-      <footer>
-        <span>Produksi Media – UI</span>
-        <span>ORFILM UI</span>
-      </footer>
-    </section>
-    <!-- home section ends -->
-    
-    <!-- about section starts -->
+              <div class="card p-5 fs-17 fade-up delay-1">
+                <p>
+                  <b>Orang Film UI</b> adalah sebuah studio yang juga menjadi
+                  mini production house di Produksi Media yang berfokus pada
+                  bidang Filmografi, Fotografi & Videografi. Orang Film
+                  mempersiapkan mahasiswanya untuk masuk ke industri kreatif
+                  khususnya film. Selain itu, Orang Film juga memiliki visi
+                  untuk menjadi rumah produksi film terdepan di UI yang
+                  mendorong kreativitas dan inovasi terbaru di industri film dan
+                  fotografi.
+                </p>
+              </div>
+            </div>
 
-     <section id="about" class="about-section">
+            <div class="col-md-6">
+              <h2 class="big-title text-center">PEMINATAN</h2>
 
-    <h1 class="section-title">ABOUT ORFILM UI</h1>
+              <div class="card p-5 fs-17 fade-up delay-2">
+                <p>
+                  <b>Peminatan Filmografi, Videografi, dan Fotografi</b>
+                  Produksi Media berfokus pada pengembangan keterampilan
+                  konseptual dan teknis dalam memproduksi film, videografi, dan
+                  fotografi. Mahasiswa akan mempelajari berbagai aspek seperti
+                  manajemen kru & produksi, pengoperasian peralatan, skill
+                  pra-produksi, produksi, pasca-produksi, dan aspek lain dalam
+                  industri Film & Fotografi.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- about section ends -->
 
-  <div class="about-row">
-    <div class="left-col">
-      <h2 class="big-title">ORANG FILM UI</h2>
+        <!-- gallery section starts -->
+        <section id="gallery" class="gallery-section">
+          <h1 class="section-title">GALLERY</h1>
 
-      <div class="long-box fade-up delay-1">
-        <p>
-          <b>Orang Film UI</b> adalah sebuah studio yang juga menjadi mini production house di Produksi Media 
-          yang berfokus pada bidang Filmografi, Fotografi & Videografi. Orang Film mempersiapkan mahasiswanya 
-          untuk masuk ke industri kreatif khususnya film. Selain itu, Orang Film juga memiliki visi untuk 
-          menjadi rumah produksi film terdepan di UI yang mendorong kreativitas dan inovasi terbaru di industri 
-          film dan fotografi.
-        </p>
+          <div
+            id="carouselGallery"
+            class="carousel slide p-5"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-indicators">
+              <button
+                type="button"
+                data-bs-target="#carouselGallery"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselGallery"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselGallery"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselGallery"
+                data-bs-slide-to="3"
+                aria-label="Slide 4"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselGallery"
+                data-bs-slide-to="4"
+                aria-label="Slide 5"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselGallery"
+                data-bs-slide-to="5"
+                aria-label="Slide 6"
+              ></button>
+            </div>
+
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img
+                  src="../img/orfilJumbo.jpg"
+                  class="d-block w-100"
+                  alt="kuliah umum jumbo"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="../img/orfilFate.jpg"
+                  class="d-block w-100"
+                  alt="fate"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="../img/orfilBaduy.jpg"
+                  class="d-block w-100"
+                  alt="baduy education"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="../img/orfilBali.jpg"
+                  class="d-block w-100"
+                  alt="film week bali"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="../img/orfilTalkshow.jpg"
+                  class="d-block w-100"
+                  alt="Talkshow"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="../img/orfilBTS.jpg"
+                  class="d-block w-100"
+                  alt="bts shooting"
+                />
+              </div>
+            </div>
+
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselGallery"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselGallery"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </section>
+        <!-- gallery section ends -->
+
+        <!-- artwork section starts -->
+        <section id="artwork" class="artwork-section">
+          <h1 class="section-title">ARTWORK</h1>
+
+          <div class="artwork-grid">
+            <a class="artwork-item" href="#">
+              <img
+                src="../img/orfilSDSSI.jpg"
+                alt="Poster Sebelum dan Sesudah Saat Ini"
+              />
+              <div class="artwork-overlay">
+                <div class="artwork-title-small">
+                  Sebelum dan Sesudah Saat Ini
+                </div>
+                <div class="artwork-desc">Deskripsi singkat film</div>
+              </div>
+            </a>
+
+            <a
+              class="artwork-item"
+              href="https://youtu.be/44nLh5V3YK8?si=k-X5kOqvOCWUhaTK"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="../img/orfilDanilla.jpg"
+                alt="Poster Danilla Dalam Nirvana"
+              />
+              <div class="artwork-overlay">
+                <div class="artwork-title-small">Danilla di dalam Nirvana</div>
+                <div class="artwork-desc">
+                  “Dalam Nirvana” – Danilla menggambarkan seseorang yang sedang
+                  mencari ruang paling tenang dalam dirinya...
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+        <!-- artwork section ends -->
       </div>
     </div>
-
-    <div class="right-col"></div>
-      <h2 class="big-title">PEMINATAN</h2>
-
-      <div class="long-box fade-up delay-2">
-        <p>
-          <b>Peminatan Filmografi, Videografi, dan Fotografi</b> Produksi Media berfokus pada 
-          pengembangan keterampilan konseptual dan teknis dalam memproduksi film, videografi, dan fotografi. 
-          Mahasiswa akan mempelajari berbagai aspek seperti manajemen kru & produksi, pengoperasian peralatan, 
-          skill pra-produksi, produksi, pasca-produksi, dan aspek lain dalam industri Film & Fotografi.
-        </p>
-      </div>
-    </div>
-
-  </div>
-    </section>
-
-    <!-- about section ends -->
-
-    <!-- gallery section starts -->
-
-    <section id="gallery" class="gallery-section">
-    <div class="container">
-        <h2 class="gallery-title">
-            <span class="navy-text">ORANG FILM UI</span> GALLERY
-        </h2>
-        
-        <div class="gallery-grid">
-            
-            <div class="gallery-item item-1">
-                <img src="img/gallery 4.jpg" alt="Poster Baduy: The Silence of Education">
-            </div>
-            
-            <div class="gallery-item item-2">
-                <img src="img/gallery 5.jpg" alt="Behind The Scene Outdoor Shoot">
-            </div>
-            
-            <div class="gallery-item item-3">
-                <img src="img/gallery 7.jpg" alt="Poster Film Screening dan Talk Show">
-            </div>
-            
-            <div class="gallery-item item-4">
-                <img src="img/gallery 6.jpg" alt="Poster Film Imam dan Orang Film 24">
-            </div>
-            
-            <div class="gallery-item item-5">
-                <img src="img/gallery 8.jpg" alt="Pameran Foto Galeri">
-            </div>
-            
-            <div class="gallery-item item-6">
-                <img src="img/gallery 3.jpg" alt="Poster Film Fate">
-            </div>
-            
-            <div class="gallery-item item-7">
-                <img src="img/gallery 9.jpg" alt="Media Production Laboratory">
-            </div>
-            
-            <div class="gallery-item item-8">
-                <img src="img/gallery 2.jpg" alt="Poster Kuliah Umum Jumbo">
-            </div>
-            
-            <div class="gallery-item item-9">
-                <img src="img/gallery 1.jpg" alt="Behind The Scene Syuting">
-            </div>
-        </div>
-    </div>
-    </section>
-    <!-- gallery section ends -->
 
     <!-- contact section starts -->
-     <section id="contact" class="contact-section">
-    <div class="contact-container">
-        <div class="contact-background"></div>
+    <section id="contact" class="footer-section text-white">
+      <div class="container py-5">
+        <div
+          class="row align-items-center justify-content-center text-center text-md-start"
+        >
+          <!-- LEFT SIDE -->
+          <div class="col-md-5 mb-4 mb-md-0">
+            <h3 class="fw-bold mb-3 fs-3">Contact Us</h3>
 
-        <h2 class="contact-title">CONTACT US</h2>
+            <div class="d-flex flex-column gap-3 fs-5">
+              <div class="d-flex align-items-center gap-3">
+                <i class="fab fa-instagram fs-3"></i>
+                <a
+                  href="https://www.instagram.com/orangfilm.ui/?hl=en"
+                  target="_blank"
+                  >Orangfilm.Ui</a
+                >
+              </div>
 
-        <div class="contact-content">
-            
-            <div class="contact-info">
-                
-                <div class="contact-item">
-                    <i class="fab fa-instagram contact-icon"></i>
-                    <span class="contact-text">@orangfilm.ui</span>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="fas fa-user-circle contact-icon"></i> 
-                    <span class="contact-text">@lab.promed.ui</span>
-                </div>
-                
-                <div class="contact-item">
-                    <i class="far fa-envelope contact-icon"></i>
-                    <span class="contact-text">humas@vokasi.ui.ac.id</span>
-                </div>
+              <div class="d-flex align-items-center gap-3">
+                <i class="fas fa-user-circle fs-3"></i>
+                <a
+                  href="https://www.instagram.com/lab.promed.ui/?hl=en"
+                  target="_blank"
+                  >Lab.Promed.Ui</a
+                >
+              </div>
 
+              <div class="d-flex align-items-center gap-3">
+                <i class="far fa-envelope fs-3"></i>
+                <a href="mailto:humas@vokasi.ui.ac.id">humas@vokasi.ui.ac.id</a>
+              </div>
             </div>
+          </div>
 
-            <div class="contact-logo">
-                <img src="img/logo.jpg" alt="Orang Film UI Logo"> 
-            </div>
-
+          <!-- RIGHT SIDE -->
+          <div class="col-md-3 text-center">
+            <img
+              src="../img/orfilLogo.jpg"
+              class="img-fluid footer-logo"
+              alt="ORFILM UI Logo"
+            />
+          </div>
         </div>
-    </div>
-</section>
+
+        <hr />
+        <div class="text-center text-white-50 mt-4 small">
+          © 2025 ORANG FILM UI — Produksi Media UI
+        </div>
+      </div>
+    </section>
     <!-- contact section ends -->
 
+    <!-- scripts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      window.addEventListener("scroll", function () {
+        const header = document.querySelector("header");
+        if (window.scrollY > 50) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
+    </script>
   </body>
-  <footer class="footer" id="footer">
-    <div class="footer-container">
-      <div class="footer-button">
-        <button
-          onclick="window.location.href='../map/map.html'"
-          class="btn-pixel"
-        >
-          OUR MAP
-        </button>
-      </div>
-    </div>
-  </footer>
 </html>
