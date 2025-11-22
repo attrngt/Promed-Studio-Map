@@ -324,4 +324,61 @@
       });
     </script>
   </body>
+  <footer class="footer" id="footer">
+    <style>
+      .footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        height: 60%;
+        align-content: center;
+        padding: 40px 0;
+      }
+
+      .footer-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .btn-pixel {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 1.3rem;
+        color: white;
+        background: navy;
+        border: 4px solid #d2d2d2;
+        border-radius: 30px;
+        padding: 9px 10px;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 4px #888, 0 8px #000000;
+        transition: all 0.1s ease-in-out;
+        image-rendering: pixelated;
+      }
+
+      .btn-pixel:hover {
+        color: white;
+        background: navy;
+        box-shadow: 0 2px #888, 0 4px #000;
+        transform: translateY(1px);
+      }
+
+      .btn-pixel:active {
+        color: white;
+        background: gray;
+        box-shadow: 0 0 #000;
+        transform: translateY(3px);
+      }
+    </style>
+    <div class="footer-container">
+      <div class="footer-button">
+        <button
+          onclick="window.location.href='../map/map.html'"
+          class="btn-pixel"
+        >
+          OUR MAP
+        </button>
+      </div>
+    </div>
+  </footer>
 </html>
