@@ -32,6 +32,21 @@ body {
   font-family: "Boldonse", sans-serif;
   margin-bottom: 10px;
 }
+/* elegant typing letters */
+.typing-span {
+  opacity: 0;
+  display: inline-block;
+  transform: translateY(8px);
+  animation: typeIn 0.35s forwards;
+}
+
+@keyframes typeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .home-container p {
   font-size: 40px;
   font-family: "Cooper BT", sans-serif;
@@ -93,6 +108,7 @@ section:last-of-type img {
   border-radius: 20px;
 }
 .container-2 {
+  margin: 20px;
   background-image: url("../img/logoflui2.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -106,11 +122,12 @@ section:last-of-type img {
 }
 .text-2 {
   font-family: "Boldonse";
+  padding-bottom: 3px;
 }
 
 .bg2 {
   display: block;
-  padding: 50px;
+  padding: auto 50px;
 }
 
 .text-2 {
@@ -129,7 +146,7 @@ section:last-of-type img {
   font-family: "Boldonse";
   font-size: 50px;
   font-weight: 500;
-  text-align: le;
+  text-align: left;
 }
 
 .footer {
@@ -176,3 +193,27 @@ section:last-of-type img {
   box-shadow: 0 0 #000;
   transform: translateY(3px);
 }
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ff8a00, #e52e71);
+  width: 0%;
+  z-index: 9999;
+}
+.footer-left h4{
+  font-family: "Boldonse", sans-serif;
+}
+.footer-links a {
+  color: #fff;
+  margin: 30px;
+  font-size: 28px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #ff4ec7; /* pink aesthetic */
+}
+
