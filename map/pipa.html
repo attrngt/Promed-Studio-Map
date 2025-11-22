@@ -1,57 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixel Pals</title>
-    <link rel="stylesheet" href="pipa.css">
-    <link href="https://fonts.cdnfonts.com/css/retro-pixel" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="pipa.css" />
+    <link href="https://fonts.cdnfonts.com/css/retro-pixel" rel="stylesheet" />
+  </head>
+  <body>
     <!-- HOME SECTION -->
     <section id="home">
-        <div class="home-container">
-            <div class="content1">Pixel</div>
-            <div class="content1">Pals</div>
-        </div>
+      <div class="home-container">
+        <div class="content1 hi reveal">Hi, We're<br />Pixel Pals,</div>
+      </div>
     </section>
 
     <!-- SECTION 1 -->
     <section id="section1">
-        <div class="section-container">
-            <div class="section-content">
-                Peminatan Animasi dan Desain
-            </div>
+      <div class="section-container">
+        <div class="section-content reveal">
+          Peminatan<br />
+          Animasi<br />
+          dan Desain<br />
+          Produksi Media
         </div>
+      </div>
     </section>
 
     <!-- SECTION 2 (ABOUT US) -->
     <section id="section2">
-        <div class="section-container">
-            <div class="text-box">
-                <p>
-                    Pixel Pals adalah nama studio/peminatan dari konsentrasi Animasi dan Desain Visual.
-                    Pada studio Pixel Pals, mahasiswa menggabungkan elemen seni visual dan teknologi
-                    untuk menciptakan karya komunikasi yang efektif dan menarik. Dengan memanfaatkan
-                    teknologi dan prinsip-prinsip estetika, mahasiswa dilatih untuk menciptakan berbagai
-                    media visual dengan cara yang inovatif, kreatif, dan relevan dengan kebutuhan audiens saat ini.
-                </p>
-            </div>
+      <div class="section-container">
+        <div class="text-box">
+          <p>
+            Pada studio Pixel Pals, mahasiswa menggabungkan seni visual dan
+            teknologi untuk menciptakan karya komunikasi yang efektif. Mahasiswa
+            juga dilatih untuk menciptakan berbagai media visual dengan cara
+            yang inovatif, kreatif, dan relevan dengan kebutuhan audiens saat
+            ini.
+          </p>
         </div>
+      </div>
     </section>
 
     <!-- CORE STREAM -->
     <section id="core-stream">
-        <div class="stream-container">
-            <div class="section-content">CORE STREAM</div>
+      <div class="stream-container">
+        <div class="box">
+          <img class="pipa1" id="npcCharacter" src="../img/pipa.png" />
+          <img class="pipa2" src="../img/pipa2.png" />
+          <img class="pipa3" src="../img/pipa3.png" />
+          <img class="pipa5" src="../img/pipa5.png" />
+          <img class="job1" src="../img/job1.png" />
+          <img class="job2" src="../img/job2.png" />
+          <img class="job3" src="../img/job3.png" />
+          <img class="job4" src="../img/job4.png" />
+          <div class="core-stream-text"></div>
         </div>
+      </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact">
-        <div class="contact-container">
-            <div class="section-content">CONTACT US</div>
+      <div class="contact-container">
+        <div class="contact-text">PIXEL PALS</div>
+
+        <div class="contact-icons">
+          <a
+            href="https://www.instagram.com/pixelpals.ui"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="../img/instagram.png"
+              class="instagram"
+              alt="Instagram Pixel Pals"
+            />
+          </a>
+          <a
+            href="https://promedui.com/animation-design_pixelpals/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="../img/pipa.webp"
+              class="promedpipa"
+              alt="Promed Pixel Pals"
+            />
+          </a>
         </div>
+      </div>
+      <div class="footer-container">
+        <div class="footer-button">
+          <button
+            onclick="window.location.href='../map/map.html'"
+            class="btn-pixel"
+          >
+            BACK TO MAP
+          </button>
+        </div>
+      </div>
     </section>
-</body>
+    <!-- NPC Dialogue Box -->
+    <div id="npcDialog" class="npc-dialog hidden">
+      <div class="npc-border">
+        <p id="npcText" class="npc-text"></p>
+
+        <div class="npc-options">
+          <button class="npc-btn" id="npcYes">Yes</button>
+          <button class="npc-btn" id="npcNo">No</button>
+        </div>
+      </div>
+    </div>
+    <script src="pipa.js"></script>
+  </body>
 </html>
