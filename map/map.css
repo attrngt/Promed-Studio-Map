@@ -80,7 +80,7 @@ canvas {
   animation: fadeInKey 1s ease forwards;
   animation-delay: 3.2s; /* muncul setelah efek mengetik selesai */
 }
-.choiceBtn{
+.choiceBtn {
   background-color: var(--warna-bg);
 }
 .choiceBtn:hover {
@@ -270,13 +270,14 @@ canvas {
   .canvas-wrapper,
   #gameCanvas,
   .introText,
-  #hint, .control-widget {
+  #hint,
+  .control-widget {
     /* <-- TAMBAHAN: Sembunyikan petunjuk */
     display: none !important;
     visibility: hidden;
   }
-  .modal-overlay{
-    display: flex;
+  .modal-overlay {
+    display: none;
   }
 
   body {
