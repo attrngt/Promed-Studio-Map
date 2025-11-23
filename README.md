@@ -4,6 +4,7 @@ Projek UAS TI 2025
 
 ## Deskripsi
 Produki Media Map adalah sebuah web dengan map interaktif yang berisi 13 studio di Produksi Media, Universitas Indonesia. Website ini membantu mahasiswa untuk mengenal dan mengeksplorasi studio peminatan yang tersedia di Promed UI.
+Namun saat ini (24 November 2025) website ini baru berisi halaman untuk beberapa studio saja, seperti WIRE, ORFIL, FLUI, dan PIPA. Studio lainnya menyusul.
 
 ## Fitur
 - Map interaktif studio produksi media di UI
