@@ -270,11 +270,13 @@ canvas {
   .canvas-wrapper,
   #gameCanvas,
   .introText,
-  #hint,
-  .modal-overlay, .control-widget {
+  #hint, .control-widget {
     /* <-- TAMBAHAN: Sembunyikan petunjuk */
     display: none !important;
     visibility: hidden;
+  }
+  .modal-overlay{
+    display: flex;
   }
 
   body {
